@@ -25,12 +25,17 @@ highScoreSpan.textContent = highScore;
 // 🎮 Start screen state
 let isGameRunning = false;
 
-// 🎛️ Input listener
+// 🎛️ Input listener with improved music playback
 document.addEventListener('keydown', (e) => {
   if (!isGameRunning) {
     isGameRunning = true;
     direction = 'RIGHT'; // Start moving right
-    musicSound.play();
+
+    musicSound.load(); // Helps some browsers buffer the audio correctly
+    musicSound.play().catch((err) => {
+      console.log('Music playback failed:', err);
+    });
+
     return;
   }
 
